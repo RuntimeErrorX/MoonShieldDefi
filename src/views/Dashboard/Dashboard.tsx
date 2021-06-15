@@ -40,7 +40,7 @@ const Home: React.FC = () => {
   const wallet = bsc.useWallet()
 
   if (wallet.account == null) {
-    history.push('/')
+    // history.push('/')
   }
 
   const [maxTransaction, setMaxTransaction] = useState('')
