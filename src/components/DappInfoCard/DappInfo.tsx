@@ -92,7 +92,7 @@ return (
                             </div>
                             <div className="row">
                                 <div className="col">
-                                    <p>{maxTransaction} | BNB 6.338</p>
+                                    <p>MSHLD 500000000000 | BNB  { maxTransaction }</p>
                                 </div>
                             </div>
                         </div>
@@ -153,7 +153,7 @@ return (
                             </div>
                             <div className="row">
                                 <div className="col">
-                                    <p>${ BNBinLp }</p>
+                                    <p>{ BNBinLp }</p>
                                 </div>
                             </div>
                         </div>

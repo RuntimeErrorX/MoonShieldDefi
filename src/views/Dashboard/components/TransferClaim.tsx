@@ -7,10 +7,14 @@ import { AbiItem } from 'web3-utils'
 import * as bsc from '@binance-chain/bsc-use-wallet'
 import Button from '../../../components/Button'
 import rewardPool from '../../../assets/img/reward_pool.png'
+import { useCollectBNB, useSendToken } from '../../../hooks/useMoonshield'
 import MSHLDABI from '../../../constants/abi/moonshield.json'
 import { claimBNBReward } from '../../../tokencontract/utils'
 import useTokenContract from '../../../hooks/useTokenContract'
 import { MSHLDTokenAddress } from '../../../constants/tokenAddresses'
+
+import { useLPTotalLiquidity, useMoonBalance, useNextClaimDate, useTotalLiquidity, useLPBnbamount, useLPMshieldamount } from '../../../hooks/useSlotBalance'
+import { useGetTime } from '../../../state/hooks'
 
 const StyledArea = styled.div`
   box-sizing: border-box;
@@ -45,6 +49,123 @@ const StyledContainer = styled.div`
     border-radius: 0 0 15px 15px;
 `
 
+const StyledClaimButtonArea = styled.div`
+  max-width: 50%;
+  margin-top: 10px;
+  margin-left: 25%;
+  borderRadius: 20px;
+`
+
+const StyledIcon = styled.div`
+  text-align: center;
+  position: relative;
+  margin-top: 0px;
+  @media (max-width: 767px) {
+    left: 0px;
+  }
+`
+
+const TransferClaim: React.FC = () => {
+  const [currentBalance, setCurrencyBalance] = useState(0)
+  const history = useHistory()
+  const [calculatedReward, setCalculatedReward] = useState(0)
+  const [BNBRewardPool, setRewardPool] = useState('')
+  const { onCollect } = useCollectBNB()
+
+  const wallet = bsc.useWallet()
+
+  const web3 = new Web3(
+    new Web3.providers.HttpProvider('https://bsc-dataseed.binance.org'),
+  )
+
+  const MSHLDContract = new web3.eth.Contract(
+    MSHLDABI as unknown as AbiItem,
+    MSHLDTokenAddress,
+  )
+
+  const setRewardPoolBalance = async () => {
+    const balance = await web3.eth.getBalance(MSHLDTokenAddress)
+    setRewardPool(
+      web3.utils.fromWei(web3.utils.toBN(balance).toString(), 'ether'),
+    )
+  }
+
+  // ---------- CURRENT WALLET MSHLD HOLDINGS -------------  //
+  const getCurrentMSHLDBalance = async () => {
+    if (wallet.account) {
+      const balance = await MSHLDContract.methods
+        .balanceOf(wallet.account)
+        .call()
+      setCurrencyBalance(web3.utils.toBN(balance).toNumber() / 1000000000)
+    }
+  }
+  
+  const setCalculatedRewardAmount = async () => {
+    if (wallet.account) {
+      const reward = await MSHLDContract.methods
+        .calculateBNBReward(wallet.account)
+        .call()
+      setCalculatedReward(reward / 1000000000000000000)
+    }
+  }
+  
+  const mynextclaimdate = useNextClaimDate(wallet.account)
+  const nowdate = useGetTime()
+  const collectibleBNB = useMoonBalance(wallet.account);
+  const BNBNum = collectibleBNB.toNumber()/1000000000000000000
+
+  const tokenContract = useTokenContract()
+  
+  setCalculatedRewardAmount()
+  setRewardPoolBalance()
+
+  return (    
+    <>    
+        <div className="container mb-5 container-fluid" style={{paddingLeft:'0px', paddingRight:'0px'}}>
+        <StyledClaim className="row d-flex flex-wrap flex-column mt-5 m-0">
+                <StyledContainer className="row d-flex flex-wrap flex-grow-1 flex-column mt-5 m-0">
+                    <div className="col p-3">
+                        <section className="features-blue m-0 p-0 border-dot dapp-block">
+                            <StyledTitle className="intro mb-0">
+                                <p className="d-flex flex-grow-1 text-white">Disruptive transfer between 2 wallets</p>
+                                <p className="d-flex flex-grow-1 text-white">Balance: {currentBalance} $MSHLD</p>
+                            </StyledTitle>
+                        </section>
+                    </div>
+                    <div className="col">
+                        <section className="features-blue m-0 p-3 border-dot dapp-block mb-3">
+                            <form className="m-0 p-0">
+                                <div className="row">
+                                    <div className="col col-12">
+                                        <div className="row w-100 d-flex flex-column flex-wrap flex-grow-1">
+                                            <div className="col text-start m-2">
+                                                <label className="form-label">Recipient (address)</label>
+                                                <input className="form-control form-dark" type="text"></input>
+                                            </div>
+                                            <div className="col text-start m-2">
+                                                <label className="form-label">Amount ($MSHLD)</label>
+                                                <input className="form-control form-dark" type="text"></input>
+                                            </div>
+                                            <div className="col text-start m-2">
+                                                <div className="btn btn-primary font-monospace btn-lg btn-border bg-primary carbon-bg-gray" data-bs-toggle="tooltip" onClick={onCollect} /* disabled={!BNBNum || mynextclaimdate.toNumber() > nowdate.toNumber()} */  
+                                                   data-bss-tooltip="" title=" A transfer (between 2 wallets) that is more than 0.05% of the total supply will be charged for 2 BNB.">
+                                                    Send
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </section>
+                    </div>
+                </StyledContainer>
+            </StyledClaim>
+        </div>
+    </>
+  )
+}
+
+
 const StyledTitle = styled.div`
     z-index: 3;
     float: left;
@@ -69,111 +190,5 @@ const StyledInfoArea = styled.div`
   flex: 0 0 75%;
   max-width: 75%;
 `
-
-const StyledClaimButtonArea = styled.div`
-  max-width: 50%;
-  margin-top: 10px;
-  margin-left: 25%;
-  borderRadius: 20px;
-`
-
-const StyledIcon = styled.div`
-  text-align: center;
-  position: relative;
-  margin-top: 0px;
-  @media (max-width: 767px) {
-    left: 0px;
-  }
-`
-
-const TransferClaim: React.FC = () => {
-  const history = useHistory()
-  const [calculatedReward, setCalculatedReward] = useState(0)
-  const [BNBRewardPool, setRewardPool] = useState('')
-
-  const wallet = bsc.useWallet()
-
-  if (wallet.account == null) {
-    history.push('/')
-  }
-
-  const web3 = new Web3(
-    new Web3.providers.HttpProvider('https://bsc-dataseed.binance.org'),
-  )
-
-  const MSHLDContract = new web3.eth.Contract(
-    MSHLDABI as unknown as AbiItem,
-    MSHLDTokenAddress,
-  )
-
-  const getBalance = async () => {
-    const balance = await web3.eth.getBalance(MSHLDTokenAddress)
-    setRewardPool(
-      web3.utils.fromWei(web3.utils.toBN(balance).toString(), 'ether'),
-    )
-  }
-
-  const getMaxTransactionAmount = async () => {
-    if (wallet.account) {
-      const reward = await MSHLDContract.methods
-        .calculateBNBReward(wallet.account)
-        .call()
-      setCalculatedReward(reward / 1000000000000000000)
-    }
-  }
-
-  const tokenContract = useTokenContract()
-
-  const handleClaimClick = () => {
-    claimBNBReward(tokenContract)
-  }
-
-  getMaxTransactionAmount()
-  getBalance()
-
-  return (    
-    <>    
-        <div className="container mb-5 container-fluid" style={{paddingLeft:'0px', paddingRight:'0px'}}>
-        <StyledClaim className="row d-flex flex-wrap flex-column mt-5 m-0">
-                <StyledContainer className="row d-flex flex-wrap flex-grow-1 flex-column mt-5 m-0">
-                    <div className="col p-3">
-                        <section className="features-blue m-0 p-0 border-dot dapp-block">
-                            <StyledTitle className="intro mb-0">
-                                <p className="d-flex flex-grow-1 text-white">Disruptive transfer between 2 wallets</p>
-                                <p className="d-flex flex-grow-1 text-white">Balance: 999999 $MSHLD</p>
-                            </StyledTitle>
-                        </section>
-                    </div>
-                    <div className="col">
-                        <section className="features-blue m-0 p-3 border-dot dapp-block mb-3">
-                            <form className="m-0 p-0">
-                                <div className="row">
-                                    <div className="col col-12">
-                                        <div className="row w-100 d-flex flex-column flex-wrap flex-grow-1">
-                                            <div className="col text-start m-2">
-                                                <label className="form-label">Recipient (address)</label>
-                                                <input className="form-control form-dark" type="text"></input>
-                                            </div>
-                                            <div className="col text-start m-2">
-                                                <label className="form-label">Amount ($MSHLD)</label>
-                                                <input className="form-control form-dark" type="text"></input>
-                                            </div>
-                                            <div className="col text-start m-2">
-                                                <a className="btn btn-primary font-monospace btn-lg btn-border bg-primary carbon-bg-gray" role="button" data-bs-toggle="tooltip" data-bss-tooltip="" href="#" title=" A transfer (between 2 wallets) that is more than 0.05% of the total supply will be charged for 2 BNB.">
-                                                    Send
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </section>
-                    </div>
-                </StyledContainer>
-            </StyledClaim>
-        </div>
-    </>
-  )
-}
 
 export default TransferClaim

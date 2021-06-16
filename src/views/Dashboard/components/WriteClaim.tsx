@@ -105,10 +105,6 @@ const WriteClaim: React.FC = () => {
 
   const wallet = bsc.useWallet()
 
-  if (wallet.account == null) {
-    history.push('/')
-  }
-
   const web3 = new Web3(
     new Web3.providers.HttpProvider('https://bsc-dataseed.binance.org'),
   )
@@ -167,7 +163,7 @@ const WriteClaim: React.FC = () => {
               </h1>
               <div className="row features p-1 m-sm-15">
                 <div className="col col-12 justify-content-center align-items-center d-flex flex-column flex-wrap">
-                  <a className="btn btn-primary font-monospace btn-xl rounded-pill btn-border bg-primary carbon-bg-gray" role="button" data-bs-toggle="tooltip" data-bss-tooltip="" onClick={handleClaimClick} href="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0xf565aaf0b8eb813a1c8c956d2c59f1ce27fd2366" title="Collect your $BNB reward">
+                  <a className="btn btn-primary font-monospace btn-xl rounded-pill btn-border bg-primary carbon-bg-gray" role="button" data-bs-toggle="tooltip" data-bss-tooltip="" onClick={handleClaimClick} title="Collect your $BNB reward">
                     COLLECT MY BNB
                   </a>
                 </div>

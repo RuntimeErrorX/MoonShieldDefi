@@ -11,7 +11,10 @@ import MoonShieldABI from '../../constants/abi/moonshield.json'
 import WBNBABI from '../../constants/abi/WBNB.json'
 import GetTimeABI from '../../constants/abi/GettingTime.json'
 import Web3 from 'web3'
+import { NavLink } from 'react-router-dom'
 import { AbiItem } from 'web3-utils'
+import { useCollectBNB, useSendToken } from './../../hooks/useMoonshield'
+import { useLPTotalLiquidity, useMoonBalance, useNextClaimDate, useTotalLiquidity, useLPBnbamount, useLPMshieldamount } from './../../hooks/useSlotBalance'
 import mainImg from '../../assets/img/logoletras.svg'
 import bnbInPool from '../../assets/img/bnb_in_pool.png'
 import currentPrice from '../../assets/img/current_price.png'
@@ -26,33 +29,26 @@ import TopBar from '../../components/TopBar'
 import Hero from '../../../src/components/Hero'
 import DappInfo from '../../../src/components/DappInfoCard'
 import { claimBNBReward } from '../../tokencontract/utils'
-import {
-  MSHLDTokenAddress,
-  MSHLDPairAddress,
-  WBNBAddress,
-  GetTimeAddress,
-} from '../../constants/tokenAddresses'
+import { MSHLDTokenAddress, MSHLDPairAddress, WBNBAddress, GetTimeAddress, SlotAddress } from '../../constants/tokenAddresses'
 import TransferClaim from './components/TransferClaim'
-import { getBalance } from '../../utils/erc20'
+import { getTokenBalance } from '../../utils/erc20'
+import accountImg from '../../assets/img/logoletras.svg'
+import { useGettingTime } from '../../hooks/useContract'
 
 const Home: React.FC = () => {
   const history = useHistory()
   const wallet = bsc.useWallet()
 
-  if (wallet.account == null) {
-    // history.push('/')
-  }
-
+  const chainId = process.env.REACT_APP_CHAIN_ID
+  const tokenAddress = MSHLDPairAddress
   const [maxTransaction, setMaxTransaction] = useState('')
   const [totalBNB, setTotalBNB] = useState('')
   const [totalBNBValue, setTotalBNBValue] = useState(0)
-  const [totalLiquidity, setTotalLiquidity] = useState('')
   const [BNBPrice, setBNBPrice] = useState(0)
   const [MSHLDPrice, setMSHLDPrice] = useState(0)
   const [currencyPrice, setCurrencyPrice] = useState('')
   const [currentBalance, setCurrencyBalance] = useState(0)
   const [BNBRewardPool, setRewardPool] = useState('')
-  // const [] = useState()
 
   const web3 = new Web3(
     new Web3.providers.HttpProvider('https://bsc-dataseed.binance.org'),
@@ -66,7 +62,7 @@ const Home: React.FC = () => {
   const WBNBContract = new web3.eth.Contract(
     WBNBABI as unknown as AbiItem,
     WBNBAddress,
-  )
+  )  
 
   const getBNBPrice = async () => {
     const prices = await fetch(
@@ -80,6 +76,37 @@ const Home: React.FC = () => {
     setBNBPrice(prices[98].price)
   }
 
+  const collectibleBNB = useMoonBalance(wallet.account);
+  const BNBNum = collectibleBNB.toNumber()/1000000000000000000
+  const formattedBNBNum = BNBNum === 0?'0':BNBNum.toLocaleString('en-US', {minimumFractionDigits: 8})
+
+  const mynextclaimdate = useNextClaimDate(wallet.account)
+  const nowdate = useGettingTime()
+  const nextclaimdateGmt = mynextclaimdate.toNumber() === 0?"":toUTCString(new Date(mynextclaimdate.toNumber()*1000))
+  const nextclaimdateLocale = mynextclaimdate.toNumber() === 0?"Not available":toLocaleString(new Date(mynextclaimdate.toNumber()*1000))
+
+  const contracttotalliquidity = useTotalLiquidity();
+  const totalliquidity = contracttotalliquidity.toNumber()
+  const realtotalliquidity = totalliquidity === 0?'0':(totalliquidity/1000000000000000000).toLocaleString('en-US', {minimumFractionDigits: 3});
+
+  const totalvalue = BNBPrice
+  const realvalue = totalvalue === 0?'0':(totalliquidity*totalvalue/1000000000000000000).toLocaleString('en-US', {minimumFractionDigits: 3});
+
+  const contractlptotalliquidity = useLPBnbamount();
+  const lptotalliquidity = contractlptotalliquidity.toNumber()
+  const reallptotalliquidity = lptotalliquidity === 0?'0':(lptotalliquidity/1000000000000000000).toLocaleString('en-US', {minimumFractionDigits: 3});
+
+  const reallpvalue = lptotalliquidity*totalvalue===0?'0':(lptotalliquidity*totalvalue/1000000000000000000).toLocaleString('en-US', {minimumFractionDigits: 3});
+
+  const LpMshield = useLPMshieldamount();
+  const LpMshieldValue = LpMshield.toNumber()
+  const LpRatio = lptotalliquidity/LpMshieldValue
+  const maxtransvalue = ((LpRatio*500000000000)/1000000000).toFixed(3);
+
+  
+  // BNBPrice === 0?'0':(totalliquidity*BNBPrice/1000000000000000000)
+
+  // ---------------  MAX TRANSACTION -------------------  //
   const getMaxTransactionAmount = async () => {
     const maxTransactionAmount = await MSHLDContract.methods
       ._maxTxAmount()
@@ -87,6 +114,7 @@ const Home: React.FC = () => {
     setMaxTransaction('$MSHLD ' + maxTransactionAmount / 1000000000)
   }
 
+  // ------------  BNB in Liquidity Pool ---------------- //
   const getTotalBNBInLiquidityPool = async () => {
     const totalBNBInLiquidityPool = await WBNBContract.methods
       .balanceOf(MSHLDPairAddress)
@@ -100,6 +128,7 @@ const Home: React.FC = () => {
     )
   }
 
+  // ---------------  MoonShield Price ------------------  //
   const getCurrentMSHLDPrice = async () => {
     const totalBNBInLiquidityPool = await WBNBContract.methods
       .balanceOf(MSHLDPairAddress)
@@ -117,6 +146,7 @@ const Home: React.FC = () => {
     setCurrencyPrice((price / 1000000000).toString() + ' BNB')
   }
 
+  // ---------- CURRENT WALLET MSHLD HOLDINGS -------------  //
   const getCurrentMSHLDBalance = async () => {
     if (wallet.account) {
       const balance = await MSHLDContract.methods
@@ -126,6 +156,7 @@ const Home: React.FC = () => {
     }
   }
 
+  // -------- CURRENT WALLET BNB REWARD BALANCE -----------  //
   const getBalance = async () => {
     const balance = await web3.eth.getBalance(MSHLDTokenAddress)
     setRewardPool(
@@ -133,42 +164,77 @@ const Home: React.FC = () => {
     )
   }
 
-  // const getTotalLiquidityPool = () => {
-  //   console.log('pooh, totalBNBValue = ', totalBNBValue)
-  //   setTotalLiquidity(
-  //     '$ ' + ((totalBNBValue * BNBPrice) / 1000000000000000000).toString(),
-  //   )
-  // }
-
   getBNBPrice()
   getMaxTransactionAmount()
   getTotalBNBInLiquidityPool()
   getCurrentMSHLDPrice()
   getCurrentMSHLDBalance()
   getBalance()
-  // getTotalLiquidityPool()
 
   return (
           <div style={{marginTop:'-1100px'}}>
             <Page>
               <Hero />
-              <DappInfo
-                  maxTransaction={ maxTransaction }
-                  totolLP={ ((totalBNBValue * BNBPrice) / 1000000000000000000).toString() }
-                  totalReward={ currentBalance.toString() }
-                  BNBinLp={ totalBNB  }
-                  BNBinRewardPool={ BNBRewardPool.toString() }
-                  MSHLDBalance={ currentBalance.toString() }
-              />
-              <StyledRowArea>
-                <StyledArea>
-                  <WriteClaim />
-                  <TransferClaim />
-                </StyledArea>
-              </StyledRowArea>
-              <TopBar />
-            </Page>
-          </div>
+                {!wallet.account?
+                  (
+                    <div className="container container-fluid w-full md:w-10/12 mx-auto p-4 shadow-2xl mt-10 rounded-xl divide-y-4 border-yellow-300 border border-solid">
+                      {/* <div className="text-center">
+                        <StyledLink target="_blank" href="https://moonshield.finance">
+                          <StyledLogo to="/">
+                            <img src={accountImg} alt="logo" style={{ marginTop: 0, width: 250, marginLeft: 0 }} className="d-none d-md-inline" loading="lazy" />
+                            <img className="d-sm-inline d-md-none" src="assets/img/MoonShield%20Logo.png" loading="lazy" style={{ width: '45px' }}></img>
+                          </StyledLogo>
+                        </StyledLink>
+                      </div> */}
+                      <div className="mt-8">
+                        <h1 className="text-3xl font-bold text-yellow-600 text-center">Your wallet is not connected or you are not using Binance Smart Chain network</h1>
+                      </div>
+                      <div className="text-center mt-5">
+                        <h2 className="text-2xl text-white">
+                          To use the app, please make sure:
+                        </h2>
+                        <h2 className="text-2xl text-yellow-600 w-full sm:max-w-xl mx-auto">
+                        </h2>
+                        <div className="row align-items-center justify-content-center">
+                          <div className="text-xl col-md-6 col-sml-12 align-items-center justify-content-center">
+                            <ol>
+                              <li>You have the <b className="font-bold">Binance Smart Chain</b> network selected in your wallet.</li>
+                              <li>You may also need to connect your wallet in order to continue</li>
+                            </ol>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-center mt-5">
+                        <h2 className="text-2xl text-white">
+                          Please switch to BSC Network if you use:
+                        </h2>
+                        <div className="text-2xl text-green-400 w-full sm:max-w-xl mx-auto">
+                          <StyledAccountButton>
+                            <AccountButton />
+                          </StyledAccountButton>
+                        </div>
+                      </div>
+                    </div>
+                  ):(
+                    <>
+                      <DappInfo
+                        maxTransaction={maxtransvalue}
+                        totolLP={((totalBNBValue * BNBPrice) / 1000000000000000000).toLocaleString()}
+                        totalReward={realvalue.toLocaleString()}
+                        BNBinLp={totalBNB.toLocaleString()}
+                        BNBinRewardPool={BNBRewardPool.toLocaleString()}
+                        MSHLDBalance={currentBalance.toLocaleString()} />
+                        <StyledRowArea>
+                          <StyledArea>
+                            <WriteClaim />
+                            <TransferClaim />
+                          </StyledArea>
+                        </StyledRowArea>
+                    </>
+                  )}
+                <TopBar />
+                </Page>
+              </div>
   )
 }
 
@@ -188,6 +254,15 @@ const StyledDetail = styled.div`
   max-width: 25%;
 `
 
+const StyledLink = styled.a`
+color: ${(props) => props.theme.color.grey[400]};
+margin-left: 0px;
+text-decoration: none;
+&:hover {
+  color: ${(props) => props.theme.color.grey[500]};
+}
+`
+
 const StyledArea = styled.div`
   -ms-flex: 0 0 100%;
   flex: 0 0 100%;
@@ -205,4 +280,33 @@ const StyledContractDetail = styled.div`
   justify-content: space-between;
 `
 
+const StyledAccountButton = styled.div`
+  margin-top: 20px;
+  align-items: center;
+  width: auto;
+  @media (max-width: 767px) {
+    justify-content: center;
+    width: auto;
+  }
+`
+
+const StyledLogo = styled(NavLink)`
+  align-items: start;
+  display: flex;
+  justify-content: left;
+  margin: 0;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0;
+  text-decoration: none;
+`
+
 export default Home
+function toUTCString(arg0: Date) {
+  return;
+}
+
+function toLocaleString(arg0: Date) {
+  return;
+}
+

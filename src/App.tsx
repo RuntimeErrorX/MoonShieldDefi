@@ -46,14 +46,14 @@ const Providers: React.FC = ({ children }) => {
     // <div style={{ backgroundImage: `url(${backgroundImg})` }}>
     <ThemeProvider theme={lightTheme}>
       <GlobalStyle />
-      <UseWalletProvider
-        chainId={56}
-        connectors={{
-          walletconnect: { rpcUrl: 'https://bsc-dataseed.binance.org/' },
-        }}
-      >
-        <ModalsProvider>{children}</ModalsProvider>
-      </UseWalletProvider>
+        <UseWalletProvider
+          chainId={56}
+          connectors={{
+            walletconnect: { rpcUrl: 'https://bsc-dataseed.binance.org/' },
+          }}
+        >
+          <ModalsProvider>{children}</ModalsProvider>
+        </UseWalletProvider>
     </ThemeProvider>
     // </div>
   )

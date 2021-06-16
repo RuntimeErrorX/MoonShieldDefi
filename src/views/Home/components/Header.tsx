@@ -2,9 +2,6 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { useMediaQuery } from 'react-responsive'
-import shieldImg from '../../../assets/img/MoonShield%20Logo.png'
-import accountImg from '../../../assets/img/logoletras.svg'
-import AccountButton from '../../../components/TopBar/components/AccountButton'
 
 const Header: React.FC = () => {
   const isDesktopOrLaptop = useMediaQuery({

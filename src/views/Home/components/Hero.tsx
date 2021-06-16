@@ -85,7 +85,7 @@ const StyledLogoWrapper = styled.div`
                                         <div className="col-sm-6 col-md-4 mb-2 p-2" data-aos="fade" data-aos-duration="1200" data-aos-delay="700">
                                             <h3 className="name">Copy the contract ID</h3>
                                             <p className="description" style={{ wordWrap: 'break-word' }}>
-                                                Copy our contract ID below and use it on Pancakeswap to buy $MSHLD
+                                                Copy our contract ID below and use it on Pancakeswap to buy $MSHLD&nbsp;
                                                 <strong>0XF565AAF0B8EB813A1C8C956D2C59F1CE27FD2366</strong>
                                             </p>
                                         </div>

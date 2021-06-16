@@ -35,8 +35,8 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 
   if (account) {
     history.push('/dashboard')
-  } else {
-    history.push('/')
+  // } else {
+  //   history.push('/')
   }
 
   return (
