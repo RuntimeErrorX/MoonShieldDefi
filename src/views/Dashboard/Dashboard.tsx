@@ -103,9 +103,6 @@ const Home: React.FC = () => {
   const LpRatio = lptotalliquidity/LpMshieldValue
   const maxtransvalue = ((LpRatio*500000000000)/1000000000).toFixed(3);
 
-  
-  // BNBPrice === 0?'0':(totalliquidity*BNBPrice/1000000000000000000)
-
   // ---------------  MAX TRANSACTION -------------------  //
   const getMaxTransactionAmount = async () => {
     const maxTransactionAmount = await MSHLDContract.methods

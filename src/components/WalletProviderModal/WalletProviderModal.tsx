@@ -11,6 +11,7 @@ import ModalTitle from '../ModalTitle'
 import Spacer from '../Spacer'
 import WalletCard from './components/WalletCard'
 import Button from '../Button'
+import accountImg from '../../assets/img/logoletras.svg'
 
 const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const { account, connect } = bsc.useWallet()
@@ -23,7 +24,8 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
   return (
     <Modal>
-      <ModalTitle text="Connect to a wallet" />
+      <ModalTitle text="Connect to a wallet" />      
+      <img style={{ width: '70%' }} src={accountImg}></img>
       <ModalContent>
         <StyledWalletsWrapper>
           <StyledWalletCard>
@@ -40,12 +42,12 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
               onConnect={() => connect('bsc')}
               title="BSC wallet"
             />
-            {/* <Spacer />
+            <Spacer />
               <WalletCard
-                icon={<img src={trustLogo} alt='BSC' style={{ height: 32 }} />}
+                icon={<img src={trustLogo} alt='BSC' style={{ height: 32, paddingRight:'-10px' }} />}
                 onConnect={() => connect('walletconnect')}
-                title="Wallet connect"
-              /> */}
+                title="TrustWallet"
+              />
           </StyledWalletCard>
         </StyledWalletsWrapper>
       </ModalContent>

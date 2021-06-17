@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import React, { useEffect, useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import Web3 from 'web3'
@@ -12,6 +12,9 @@ import MSHLDABI from '../../../constants/abi/moonshield.json'
 import { claimBNBReward } from '../../../tokencontract/utils'
 import useTokenContract from '../../../hooks/useTokenContract'
 import { MSHLDTokenAddress } from '../../../constants/tokenAddresses'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import TokenInput from './../../../components/TokenInput'
+import { faPaperPlane, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 
 import { useLPTotalLiquidity, useMoonBalance, useNextClaimDate, useTotalLiquidity, useLPBnbamount, useLPMshieldamount } from '../../../hooks/useSlotBalance'
 import { useGetTime } from '../../../state/hooks'
@@ -71,6 +74,10 @@ const TransferClaim: React.FC = () => {
   const [calculatedReward, setCalculatedReward] = useState(0)
   const [BNBRewardPool, setRewardPool] = useState('')
   const { onCollect } = useCollectBNB()
+  const [sendAddress, setAddressVal] = useState('')
+  const [val, setVal] = useState('')
+  const { onSend } = useSendToken()
+  const [pendingTx, setPendingTx] = useState(false)
 
   const wallet = bsc.useWallet()
 
@@ -100,6 +107,8 @@ const TransferClaim: React.FC = () => {
     }
   }
   
+  const fullBalance = currentBalance === 0?'0':((currentBalance/1000000000)).toLocaleString('en-US', {minimumFractionDigits: 3})
+  
   const setCalculatedRewardAmount = async () => {
     if (wallet.account) {
       const reward = await MSHLDContract.methods
@@ -109,6 +118,24 @@ const TransferClaim: React.FC = () => {
     }
   }
   
+  const handleChange = useCallback(
+    (e: React.FormEvent<HTMLInputElement>) => {
+      setVal(e.currentTarget.value)
+    },
+    [setVal],
+  )
+
+  const handleAddressChange = useCallback(
+    (e: React.FormEvent<HTMLInputElement>) => {
+      setAddressVal(e.currentTarget.value)
+    },
+    [setAddressVal],
+  )
+
+  const handleSelectMax = useCallback(() => {
+    setVal(fullBalance)
+  }, [fullBalance, setVal])
+
   const mynextclaimdate = useNextClaimDate(wallet.account)
   const nowdate = useGetTime()
   const collectibleBNB = useMoonBalance(wallet.account);
@@ -143,13 +170,26 @@ const TransferClaim: React.FC = () => {
                                                 <input className="form-control form-dark" type="text"></input>
                                             </div>
                                             <div className="col text-start m-2">
-                                                <label className="form-label">Amount ($MSHLD)</label>
-                                                <input className="form-control form-dark" type="text"></input>
+                                                <label className="form-label">Amount ($MSHLD)</label>                                           
+                                                  <TokenInput
+                                                    value={val}
+                                                    onSelectMax={handleSelectMax}
+                                                    onChange={handleChange}
+                                                    max={currentBalance}
+                                                    symbol='MSHLD'
+                                                  />
                                             </div>
-                                            <div className="col text-start m-2">
-                                                <div className="btn btn-primary font-monospace btn-lg btn-border bg-primary carbon-bg-gray" data-bs-toggle="tooltip" onClick={onCollect} /* disabled={!BNBNum || mynextclaimdate.toNumber() > nowdate.toNumber()} */  
-                                                   data-bss-tooltip="" title=" A transfer (between 2 wallets) that is more than 0.05% of the total supply will be charged for 2 BNB.">
-                                                    Send
+                                            <div className="row text-start m-2">
+                                                <div className="btn col-md-3 col-sml-12 btn-primary font-monospace btn-lg btn-border bg-primary carbon-bg-gray" style={{ textAlign:'center', color :'#fff', width:'100%' }} data-bs-toggle="tooltip" /* onClick={onCollect} disabled={!BNBNum || mynextclaimdate.toNumber() > nowdate.toNumber()} */  
+                                                   data-bss-tooltip="" title=" A transfer (between 2 wallets) that is more than 0.05% of the total supply will be charged for 2 BNB.">                                                    
+                                                  <Button onClick={async () => {
+                                                    setPendingTx(true)
+                                                    await onSend(val, sendAddress)
+                                                    setPendingTx(false)
+                                                  }} disabled = {pendingTx || !val || val === "0" || sendAddress === ""}>
+                                                    <FontAwesomeIcon icon={faPaperPlane} className="mr-1"/>
+                                                    <div style={{ textAlign:'center', color :'#fff', width:'100%', margin:'0px auto' }}>Send</div>
+                                                  </Button>
                                                 </div>
                                             </div>
                                         </div>

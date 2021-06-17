@@ -5,12 +5,12 @@ import styled from 'styled-components'
 import Web3 from 'web3'
 import { AbiItem } from 'web3-utils'
 import * as bsc from '@binance-chain/bsc-use-wallet'
-import Button from '../../../components/Button'
-import rewardPool from '../../../assets/img/reward_pool.png'
 import MSHLDABI from '../../../constants/abi/moonshield.json'
 import { claimBNBReward } from '../../../tokencontract/utils'
 import useTokenContract from '../../../hooks/useTokenContract'
 import { MSHLDTokenAddress } from '../../../constants/tokenAddresses'
+import { useNextClaimDate } from '../../../hooks/useSlotBalance'
+import { useGettingTime } from '../../../hooks/useContract'
 
 const StyledArea = styled.div`
   box-sizing: border-box;
@@ -130,6 +130,11 @@ const WriteClaim: React.FC = () => {
     }
   }
 
+  const mynextclaimdate = useNextClaimDate(wallet.account)
+  const nowdate = useGettingTime()
+  const nextclaimdateGmt = mynextclaimdate.toNumber() === 0?"":toUTCString(new Date(mynextclaimdate.toNumber()*1000))
+  const nextclaimdateLocale = mynextclaimdate.toNumber() === 0?"Not available":toLocaleString(new Date(mynextclaimdate.toNumber()*1000))
+
   const tokenContract = useTokenContract()
 
   const handleClaimClick = () => {
@@ -159,7 +164,7 @@ const WriteClaim: React.FC = () => {
           <div className="col">
             <section className="features-blue m-0 border-dot dapp-block mb-3 px-0 ps-0 p-5">
               <h1 className="text-center">
-                You can collect your BNB at: Sat, 05 Jun 2021 07: 58: 30 GMT
+                You can collect your BNB at: {nextclaimdateLocale}
               </h1>
               <div className="row features p-1 m-sm-15">
                 <div className="col col-12 justify-content-center align-items-center d-flex flex-column flex-wrap">
@@ -210,3 +215,11 @@ const WriteClaim: React.FC = () => {
 }
 
 export default WriteClaim
+
+function toUTCString(arg0: Date) {
+  return;
+}
+
+function toLocaleString(arg0: Date) {
+  return;
+}

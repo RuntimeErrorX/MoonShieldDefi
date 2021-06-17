@@ -4,6 +4,9 @@
   "private": true,
   "dependencies": {
     "@binance-chain/bsc-use-wallet": "^0.8.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "@material-ui/core": "^4.11.2",
     "@pancakeswap-libs/uikit": "goosedefi/goose-uikit",
     "@types/debounce": "^1.2.0",

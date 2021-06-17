@@ -29,9 +29,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
           <div style={{ display: 'flex' }}>
             <StyledBalanceWrapper>
-              <CardIcon>
-                <img style={{ width: 100 }} src={accountImg}></img>
-              </CardIcon>
+                <img style={{ width: '100%' }} src={accountImg}></img>
               <StyledBalance></StyledBalance>
             </StyledBalanceWrapper>
           </div>

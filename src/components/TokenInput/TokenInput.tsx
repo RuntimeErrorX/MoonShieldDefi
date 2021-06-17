@@ -18,7 +18,7 @@ const TokenInput: React.FC<TokenInputProps> = ({
   value,
 }) => {
   return (
-    <StyledTokenInput>
+    <StyledTokenInput className="form-control form-dark">
       <StyledMaxText>{max.toLocaleString()} {symbol} Available</StyledMaxText>
       <Input
         endAdornment={(

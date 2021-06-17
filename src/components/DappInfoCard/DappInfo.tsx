@@ -172,7 +172,7 @@ return (
                             </div>
                             <div className="row">
                                 <div className="col">
-                                    <p>${BNBinRewardPool}</p>
+                                    <p>BNB {BNBinRewardPool}</p>
                                 </div>
                             </div>
                         </section>
