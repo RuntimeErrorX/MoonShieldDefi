@@ -71,17 +71,13 @@ const StyledLogoWrapper = styled.div`
                             <HeaderSection className="features-blue m-0 p-5 border-dot">
                                 <div className="intro mb-0" style={{ zIndex: 3 }}></div>
                                 <div className="row features p-1 m-sm-15">
-                                    <div className="col col-12 col-lg-4 justify-content-center align-items-center d-flex flex-column flex-wrap flex-grow-1">
+                                    <div className="col col-12 col-lg-6 justify-content-center align-items-center d-flex flex-column flex-wrap flex-grow-1">
                                         <h3 className="name">Holders</h3>
                                         <p className="description">7000+</p>
                                     </div>
-                                    <div className="col col-12 col-lg-4 justify-content-center align-items-center d-flex flex-column flex-wrap flex-grow-1">
+                                    <div className="col col-12 col-lg-6 justify-content-center align-items-center d-flex flex-column flex-wrap flex-grow-1">
                                         <h3 className="name">Burned</h3>
                                         <p className="description">Approx. 7.6%</p>
-                                    </div>
-                                    <div className="col col-12 col-lg-4 justify-content-center align-items-center d-flex flex-column flex-wrap flex-grow-1">
-                                        <h3 className="name">Peak mcap</h3>
-                                        <p className="description">10 million USD</p>
                                     </div>
                                 </div>
                             </HeaderSection>

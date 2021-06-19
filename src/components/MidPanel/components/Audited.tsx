@@ -28,7 +28,7 @@ const AuditedInfo: React.FC = () => {
                                         </div>
                                         <h3 className="name">TechRate</h3>
                                         <p className="description">
-                                            $MSHLD passed TechRate's audit in April 2021 with just minor severity issues.
+                                            $MSHLD passed TechRate's audit in April 2021.
                                         </p>
                                         <a className="learn-more" href="http://moonshield.finance/MoonShield%20Full%20Smart%20Contract%20Security%20Audit.pdf">Read audit »</a>
                                     </div>
@@ -40,7 +40,7 @@ const AuditedInfo: React.FC = () => {
                                         </div>
                                         <h3 className="name">Solidity</h3>
                                         <p className="description">
-                                            Solidity audited $MSHLD in May 2021 and hasn't identified security threats.
+                                            Solidity audited $MSHLD in May 2021 and passed.
                                         </p>
                                         <a className="learn-more" href="https://solidity.finance/audits/MoonShield/">Read audit »</a>
                                     </div>

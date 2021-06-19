@@ -21,28 +21,36 @@ const Team: React.FC = () => {
                             <p className="text-center">Meet the $MSHLD squad</p>
                         </div>
                         <div className="row people d-flex flex-wrap flex-row justify-content-evenly align-items-center flex-grow-1">
-                            <div className="col-md-6 col-lg-4 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1300">
+                            <div className="col-md-6 col-lg-3 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1300">
                                 <h3 className="name">Butler</h3>
                                 <p className="title">Founder</p>
                                 <p className="description">
                                     I am the community manager and the connective tissue behind the scenes at Moonshield. I have a ton of experience in 
-                                    the crypto space as well as a Bachelor in Film Screenwriting.
+                                    the crypto space.
                                 </p>
                             </div>
-                            <div className="col-md-6 col-lg-4 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1350">
-                                <h3 className="name">Picklus</h3>
+                            <div className="col-md-6 col-lg-3 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1350">
+                                <h3 className="name">Derka Derek</h3>
                                 <p className="title">MARKETING MANAGER</p>
                                 <p className="description">
                                     I am the community manager and the connective tissue behind the scenes at Moonshield. I have a ton of experience in 
-                                    the crypto space as well as a Bachelor in Film Screenwriting.
+                                    the crypto space.
                                 </p>
                             </div>
-                            <div className="col-md-6 col-lg-4 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1350">
-                                <h3 className="name">Jason Hodl</h3>
+                            <div className="col-md-6 col-lg-3 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1350">
+                                <h3 className="name">Jason (Hold4Life)</h3>
                                 <p className="title">COMMUNITY MANAGER</p>
                                 <p className="description">
                                     I am the community manager and the connective tissue behind the scenes at Moonshield. I have a ton of experience in 
-                                    the crypto space as well as a Bachelor in Film Screenwriting. 
+                                    the crypto space.
+                                </p>
+                            </div>
+                            <div className="col-md-6 col-lg-3 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1350">
+                                <h3 className="name">Burnie420</h3>
+                                <p className="title">SOCIAL MEDIA MANAGER</p>
+                                <p className="description">
+                                    I am the community manager and the connective tissue behind the scenes at Moonshield. I have a ton of experience in 
+                                    the crypto space.
                                 </p>
                             </div>
                         </div>

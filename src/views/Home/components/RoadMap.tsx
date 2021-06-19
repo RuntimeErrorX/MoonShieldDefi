@@ -72,23 +72,6 @@ const RoadMap: React.FC = () => {
                                             </div>
                                         </div>
                                     </li>
-                                    <li className="list-group-item timeline-inverted">
-                                        <div className="timeline-image">
-                                            <img className="rounded-circle img-fluid" data-aos="zoom-in" data-aos-duration="1400" src="assets/img/TIERRA.svg" style={{padding: '35px'}}></img>                                            
-                                        </div>
-                                        <div data-aos="fade" data-aos-duration="1200" data-aos-delay="400" className="timeline-panel">
-                                            <div className="timeline-heading">
-                                                <h4>Mid May</h4>
-                                                <h4 className="subheading">Slot game</h4>
-                                            </div>
-                                            <div className="timeline-body">
-                                                <p>
-                                                    Stake $MSHLD to win $MSHLD. The losers $MSHLD is added to the Pool or Burned! Our smart contract based slot game is 
-                                                    almost complete and has been worked on now for almost a month.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </li>
                                     <li className="list-group-item">
                                         <div className="timeline-image">
                                             <img className="rounded-circle img-fluid" data-aos="zoom-in" data-aos-duration="1400" src="assets/img/MARTE.svg" style={{padding: '35px'}}></img>                                            
