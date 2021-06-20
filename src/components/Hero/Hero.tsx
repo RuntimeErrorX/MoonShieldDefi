@@ -56,12 +56,12 @@ const HeroBanner: React.FC = () => {
           <div className="row">
             <div className="justify-content-evenly align-items-center flex-wrap flex-row">
                 <div className="row">
-                    <div className="col-lg-10 align-items-center justify-content-start">
+                    <div className="col-lg-10 col-md-6 col-sml-6 justify-content-start">
                       <a href="http://moonshield.finance">
                         <p>Back to site</p> 
                       </a>
                     </div>
-                    <div className="col-lg-2 flex-wrap flex-row justify-content-right" style={{ textAlign:'right'}}>
+                    <div className="col-lg-2 col-md-6 col-sml-6 justify-content-right" style={{ textAlign:'right'}}>
                       <a className="btn btn-primary font-monospace btn-md btn-border bg-primary carbon-bg-gray align-items-end justify-content-right" role="button" href="https://docs.moonshield.finance/">Guide</a>
                     </div>
                 </div>

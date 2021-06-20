@@ -77,7 +77,7 @@ return (
         <div className="container mb-5 container-fluid" style={{paddingLeft:'0px', paddingRight:'0px'}}>
             <DappRow>
                 <div className="row" style={{ width: '100%', paddingLeft:'0px', paddingRight:'0px' }}>
-                    <DappInfoContainer className="col col-lg-4 col-md-12 my-2 my-md-0">
+                    <DappInfoContainer className="col-lg-4 col-md-12 my-2 my-md-0">
                         <div className="dapp-block d-flex flex-column justify-content-evenly align-items-center">
                             <div className="row w-75">
                                 <div className="col">
@@ -97,7 +97,7 @@ return (
                             </div>
                         </div>
                     </DappInfoContainer>
-                    <DappInfoContainer className="col col-lg-4 col-md-12 my-2 my-md-0 dapp-block" style={{ width: '100%' }}>
+                    <DappInfoContainer className="col-lg-4 col-md-12 my-2 my-md-0 dapp-block" style={{ width: '100%' }}>
                         <section className="dapp-block d-flex flex-column justify-content-evenly align-items-center">
                             <div className="row w-75">
                                 <div className="col">
@@ -116,7 +116,7 @@ return (
                             </div>
                         </section>
                     </DappInfoContainer>
-                    <DappInfoContainer className="col col-lg-4 col-md-12 my-2 my-md-0 dapp-block" style={{ width: '100%' }}>
+                    <DappInfoContainer className="col-lg-4 col-md-12 my-2 my-md-0 dapp-block" style={{ width: '100%' }}>
                         <section className="dapp-block d-flex flex-column justify-content-evenly align-items-center">
                             <div className="row w-75">
                                 <div className="col">
@@ -139,7 +139,7 @@ return (
             </DappRow>
             <DappRow>
                 <div className="row" style={{ width: '100%'}}>
-                    <DappInfoContainer className="col col-lg-4 col-md-12 my-2 my-md-0">
+                    <DappInfoContainer className="col-lg-4 col-md-12 my-2 my-md-0">
                         <div className="dapp-block d-flex flex-column justify-content-evenly align-items-center">
                             <div className="row w-75" style={{ marginTop: '-5%' }}>
                                 <div className="col">
@@ -158,7 +158,7 @@ return (
                             </div>
                         </div>
                     </DappInfoContainer>
-                    <DappInfoContainer className="col col-lg-4 col-md-12 my-2 my-md-0">
+                    <DappInfoContainer className="col-lg-4 col-md-12 my-2 my-md-0">
                         <section className="dapp-block d-flex flex-column justify-content-evenly align-items-center">
                             <div className="row w-75">
                                 <div className="col">

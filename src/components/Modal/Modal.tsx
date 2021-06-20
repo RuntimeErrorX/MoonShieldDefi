@@ -29,8 +29,7 @@ const StyledResponsiveWrapper = styled.div`
   justify-content: flex-end;
   position: relative;
   width: 100%;
-  max-width: 512px;
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.mobile}px) {
     flex: 1;
     position: absolute;
     top: 100%;
@@ -38,8 +37,6 @@ const StyledResponsiveWrapper = styled.div`
     left: 0;
     max-height: calc(100% - ${(props) => props.theme.spacing[4]}px);
     animation: ${mobileKeyframes} 0.3s forwards ease-out;
-  }
-  @media (max-width: 400px) {
   }
 `
 
@@ -49,7 +46,6 @@ const StyledModal = styled.div`
   background-color: rgba(250,255,215, 0.25);
   box-shadow: rgb(47 128 237 / 5%) 0px 4px 8px 0px;
   padding: 26px 0px 47px;
-  width: 50vw;
   overflow: hidden;
   max-width: 420px;
   max-height: 90vh;

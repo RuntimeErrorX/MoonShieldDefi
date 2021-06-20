@@ -55,6 +55,7 @@ const StyledSpacer = styled.div`
 const StyledTokenAdornmentWrapper = styled.div`
   align-items: center;
   display: flex;
+  width: 95%;
 `
 
 const StyledMaxText = styled.div`

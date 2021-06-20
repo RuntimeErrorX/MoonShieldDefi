@@ -163,7 +163,7 @@ const TransferClaim: React.FC = () => {
                         <section className="features-blue m-0 p-3 border-dot dapp-block mb-3">
                             <form className="m-0 p-0">
                                 <div className="row">
-                                    <div className="col col-12">
+                                    <div className="col col-lg-12">
                                         <div className="row w-100 d-flex flex-column flex-wrap flex-grow-1">
                                             <div className="col text-start m-2">
                                                 <label className="form-label">Recipient (address)</label>
@@ -180,7 +180,7 @@ const TransferClaim: React.FC = () => {
                                                   />
                                             </div>
                                             <div className="row text-start m-2">
-                                                <div className="btn col-md-3 col-sml-12 btn-primary font-monospace btn-lg btn-border bg-primary carbon-bg-gray" style={{ textAlign:'center', color :'#fff', width:'100%' }} data-bs-toggle="tooltip" /* onClick={onCollect} disabled={!BNBNum || mynextclaimdate.toNumber() > nowdate.toNumber()} */  
+                                                <div className="btn col-md-3 col-sml-6" style={{ textAlign:'center', color :'#fff', width:'100%' }} data-bs-toggle="tooltip" /* onClick={onCollect} disabled={!BNBNum || mynextclaimdate.toNumber() > nowdate.toNumber()} */  
                                                    data-bss-tooltip="" title=" A transfer (between 2 wallets) that is more than 0.05% of the total supply will be charged for 2 BNB.">                                                    
                                                   <Button onClick={async () => {
                                                     setPendingTx(true)
@@ -188,7 +188,7 @@ const TransferClaim: React.FC = () => {
                                                     setPendingTx(false)
                                                   }} disabled = {pendingTx || !val || val === "0" || sendAddress === ""}>
                                                     <FontAwesomeIcon icon={faPaperPlane} className="mr-1" style={{ color:'#fff'}}/>
-                                                    <div style={{ textAlign:'center', color :'#fff', width:'100%', margin:'0px auto' }}>Send</div>
+                                                    <div style={{ textAlign:'center', color :'#fff', margin:'0px auto' }}>Send</div>
                                                   </Button>
                                                 </div>
                                             </div>

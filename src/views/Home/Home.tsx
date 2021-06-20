@@ -63,7 +63,7 @@ const StyledAccountButton = styled.div`
 const Home: React.FC = () => {
   return (
           <>
-          <div style={{marginTop:'-1100px'}}>
+          <div style={{marginTop:'-1150px'}}>
               <Page>
                 <Header />
                 <HeroHowTo />

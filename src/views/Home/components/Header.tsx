@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { useMediaQuery } from 'react-responsive'
+import MSHLDABI from '../../../constants/abi/moonshield.json'
+import Web3 from 'web3'
+import { AbiItem } from 'web3-utils'
+import { MSHLDTokenAddress } from '../../../constants/tokenAddresses'
+import NumberFormat from 'react-number-format';
 
-const Header: React.FC = () => {
+const Header: React.FC = () => {    
+  const [strBurnTotal, setBurnTotal] = useState('')
+
   const isDesktopOrLaptop = useMediaQuery({
     query: '(min-width: 768px)'
   })
@@ -11,6 +18,28 @@ const Header: React.FC = () => {
   const isMobile = useMediaQuery({
     query: '(max-width: 767px)'
   })
+
+  const web3 = new Web3(
+    new Web3.providers.HttpProvider('https://bsc-dataseed.binance.org'),
+  )
+
+  const MSHLDContract = new web3.eth.Contract(
+    MSHLDABI as unknown as AbiItem,
+    MSHLDTokenAddress,
+  )
+  
+    // ---------- CURRENT WALLET MSHLD HOLDINGS -------------  //
+    const getBurnAmount = async () => {
+        if(strBurnTotal.length < 1)
+        {
+            const balance = await MSHLDContract.methods
+            .balanceOf('0x000000000000000000000000000000000000dead')
+            .call()
+            var burnTotal = web3.utils.toBN(balance).div(web3.utils.toBN(1000000000))
+            setBurnTotal(burnTotal.toLocaleString())
+        }
+        
+    }
 
   const StyledLink = styled.a`
   color: ${(props) => props.theme.color.grey[400]};
@@ -32,6 +61,8 @@ const StyledLogoWrapper = styled.div`
     width: auto;
   }
 `
+
+getBurnAmount()
 
   return (
     <>    
@@ -77,7 +108,9 @@ const StyledLogoWrapper = styled.div`
                                     </div>
                                     <div className="col col-12 col-lg-6 justify-content-center align-items-center d-flex flex-column flex-wrap flex-grow-1">
                                         <h3 className="name">Burned</h3>
-                                        <p className="description">Approx. 7.6%</p>
+                                        <p className="description">
+                                        <NumberFormat value={strBurnTotal} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                                        </p>
                                     </div>
                                 </div>
                             </HeaderSection>
