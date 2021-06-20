@@ -187,7 +187,7 @@ const TransferClaim: React.FC = () => {
                                                     await onSend(val, sendAddress)
                                                     setPendingTx(false)
                                                   }} disabled = {pendingTx || !val || val === "0" || sendAddress === ""}>
-                                                    <FontAwesomeIcon icon={faPaperPlane} className="mr-1"/>
+                                                    <FontAwesomeIcon icon={faPaperPlane} className="mr-1" style={{ color:'#fff'}}/>
                                                     <div style={{ textAlign:'center', color :'#fff', width:'100%', margin:'0px auto' }}>Send</div>
                                                   </Button>
                                                 </div>
