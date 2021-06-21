@@ -32,7 +32,7 @@ const RoadMap: React.FC = () => {
                                         <div data-aos="fade" data-aos-duration="1200" data-aos-delay="400" className="timeline-panel">
                                             <div className="timeline-heading">
                                                 <h4>May 7th</h4>
-                                                <h4 className="subheading">dApp</h4>
+                                                <h4 className="subheading">dApp - Completed</h4>
                                             </div>
                                             <div className="timeline-body">
                                                 <p>The Moon Shield DAPP will show the max transaction amount, total liquidity pool, total reward pool, total BNB in the liquidity pool, 
@@ -48,7 +48,7 @@ const RoadMap: React.FC = () => {
                                         <div data-aos="fade" data-aos-duration="1200" data-aos-delay="400" className="timeline-panel">
                                             <div className="timeline-heading">
                                                 <h4>May 10th</h4>
-                                                <h4 className="subheading">New website</h4>
+                                                <h4 className="subheading">New website - Completed</h4>
                                             </div>
                                             <div className="timeline-body">
                                                 <p>Moonshield will have its own unique website and all stats and a professional modern look!</p>
@@ -62,7 +62,7 @@ const RoadMap: React.FC = () => {
                                         <div data-aos="fade" data-aos-duration="1200" data-aos-delay="400" className="timeline-panel">
                                             <div className="timeline-heading">
                                                 <h4>May 15th</h4>
-                                                <h4 className="subheading">Solidity Audit</h4>
+                                                <h4 className="subheading">Solidity Audit - Completed</h4>
                                             </div>
                                             <div className="timeline-body">
                                                 <p>
@@ -92,7 +92,7 @@ const RoadMap: React.FC = () => {
                                         </div>
                                         <div data-aos="fade" data-aos-duration="1200" data-aos-delay="400" className="timeline-panel">
                                             <div className="timeline-heading">
-                                                <h4>June</h4>
+                                                <h4>July</h4>
                                                 <h4 className="subheading">NFT</h4>
                                             </div>
                                             <div className="timeline-body">
@@ -108,28 +108,12 @@ const RoadMap: React.FC = () => {
                                         </div>
                                         <div data-aos="fade" data-aos-duration="1200" data-aos-delay="400" className="timeline-panel">
                                             <div className="timeline-heading">
-                                                <h4>July</h4>
+                                                <h4>August</h4>
                                                 <h4 className="subheading">NFTs Market</h4>
                                             </div>
                                             <div className="timeline-body">
                                                 <p>
                                                     Later in the year, Moon Shield will have its own NFT Marketplace, where users will be able to create, buy and sell NFTs and pay in $MSHLD.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="list-group-item timeline-inverted">
-                                        <div className="timeline-image">
-                                            <img className="rounded-circle img-fluid" data-aos="zoom-in" data-aos-duration="1400" src="assets/img/NEPTUNO.svg" style={{borderRadius: '0px ! important', padding: '5px'}}></img>
-                                        </div>
-                                        <div data-aos="fade" data-aos-duration="1200" data-aos-delay="400" className="timeline-panel">
-                                            <div className="timeline-heading">
-                                                <h4>August</h4>
-                                                <h4 className="subheading">Online shop</h4>
-                                            </div>
-                                            <div className="timeline-body">
-                                                <p>An online Crypto payment based shop, where items are bought with $MSHLD. Even if a user doesn’t hold MSHLD- 
-                                                    no problem, our code will convert their BNB into $MSHLD.
                                                 </p>
                                             </div>
                                         </div>
@@ -145,6 +129,22 @@ const RoadMap: React.FC = () => {
                                             </div>
                                             <div className="timeline-body">
                                                 <p>Add a DEX&nbsp;to our Farming Platform</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li className="list-group-item timeline-inverted">
+                                        <div className="timeline-image">
+                                            <img className="rounded-circle img-fluid" data-aos="zoom-in" data-aos-duration="1400" src="assets/img/NEPTUNO.svg" style={{borderRadius: '0px ! important', padding: '5px'}}></img>
+                                        </div>
+                                        <div data-aos="fade" data-aos-duration="1200" data-aos-delay="400" className="timeline-panel">
+                                            <div className="timeline-heading">
+                                                <h4>October</h4>
+                                                <h4 className="subheading">Online shop</h4>
+                                            </div>
+                                            <div className="timeline-body">
+                                                <p>An online Crypto payment based shop, where items are bought with $MSHLD. Even if a user doesn’t hold MSHLD- 
+                                                    no problem, our code will convert their BNB into $MSHLD.
+                                                </p>
                                             </div>
                                         </div>
                                     </li>
