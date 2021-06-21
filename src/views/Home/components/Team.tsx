@@ -21,7 +21,7 @@ const Team: React.FC = () => {
                             <p className="text-center">Meet the $MSHLD squad</p>
                         </div>
                         <div className="row people d-flex flex-wrap flex-row justify-content-evenly align-items-center flex-grow-1">
-                            <div className="col-md-6 col-lg-3 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1300">
+                            <div className="col-md-4 col-lg-2 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1300">
                                 <h3 className="name">Butler</h3>
                                 <p className="title">Founder</p>
                                 <p className="description">
@@ -29,15 +29,14 @@ const Team: React.FC = () => {
                                     the crypto space.
                                 </p>
                             </div>
-                            <div className="col-md-6 col-lg-3 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1350">
+                            <div className="col-md-4 col-lg-2 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1350">
                                 <h3 className="name">Derka Derek</h3>
                                 <p className="title">MARKETING MANAGER</p>
                                 <p className="description">
-                                    I am the community manager and the connective tissue behind the scenes at Moonshield. I have a ton of experience in 
-                                    the crypto space.
+                                    I am the marketing manager. I oversee the marketing campaigns for Moonshield.
                                 </p>
                             </div>
-                            <div className="col-md-6 col-lg-3 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1350">
+                            <div className="col-md-4 col-lg-2 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1350">
                                 <h3 className="name">Jason (Hold4Life)</h3>
                                 <p className="title">COMMUNITY MANAGER</p>
                                 <p className="description">
@@ -45,12 +44,18 @@ const Team: React.FC = () => {
                                     the crypto space.
                                 </p>
                             </div>
-                            <div className="col-md-6 col-lg-3 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1350">
+                            <div className="col-md-4 col-lg-2 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1350">
                                 <h3 className="name">Burnie420</h3>
                                 <p className="title">SOCIAL MEDIA MANAGER</p>
                                 <p className="description">
-                                    I am the community manager and the connective tissue behind the scenes at Moonshield. I have a ton of experience in 
-                                    the crypto space.
+                                    I am the social media manager. I oversee all social media platforms for Moonshield.
+                                </p>
+                            </div>
+                            <div className="col-md-4 col-lg-2 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1350">
+                                <h3 className="name">Clayton</h3>
+                                <p className="title">MEDIA RELATIONS MANAGER</p>
+                                <p className="description">
+                                    I am the Media Relations Manager. I reach out to form partnerships to expand the visibility of Moonshield.
                                 </p>
                             </div>
                         </div>
