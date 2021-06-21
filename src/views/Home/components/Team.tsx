@@ -25,7 +25,7 @@ const Team: React.FC = () => {
                                 <h3 className="name">Butler</h3>
                                 <p className="title">Founder</p>
                                 <p className="description">
-                                    CEO and founder of moonshield will work out
+                                    CEO and founder of moonshield
                                 </p>
                             </div>
                             <div className="col-md-4 col-lg-2 item d-flex flex-wrap flex-column justify-content-center align-items-center" data-aos="fade" data-aos-duration="1350">
