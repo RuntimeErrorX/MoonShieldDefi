@@ -21,15 +21,6 @@ const TokenInput: React.FC<TokenInputProps> = ({
     <StyledTokenInput className="form-control form-dark">
       <StyledMaxText>{max.toLocaleString()} {symbol} Available</StyledMaxText>
       <Input
-        endAdornment={(
-          <StyledTokenAdornmentWrapper>
-            <StyledTokenSymbol>{symbol}</StyledTokenSymbol>
-            <StyledSpacer />
-            <div>
-              <Button size="sm" text="Max" onClick={onSelectMax} />
-            </div>
-          </StyledTokenAdornmentWrapper>
-        )}
         onChange={onChange}
         placeholder="0"
         value={value}

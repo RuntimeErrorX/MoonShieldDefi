@@ -120,6 +120,12 @@ const TransferClaim: React.FC = () => {
   
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
+      let valu = e.currentTarget.value;
+
+      if (!Number(valu)) {
+      return;
+      }
+      
       setVal(e.currentTarget.value)
     },
     [setVal],

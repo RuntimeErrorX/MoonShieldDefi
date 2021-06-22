@@ -19,7 +19,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <StyledInputWrapper>
       {!!startAdornment && startAdornment}
-      <StyledInput placeholder={placeholder} value={value} onChange={onChange} />
+      <StyledInput pattern={'[0-9]*'} placeholder={placeholder} value={value} onChange={onChange} />
       {!!endAdornment && endAdornment}
     </StyledInputWrapper>
   )

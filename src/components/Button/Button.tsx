@@ -108,6 +108,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   border: 1px solid rgb(255 255 255 / 40%);
   width: 100%;
   height: 42px;
+  text-align: center;
   font-size: 18px;
   box-sizing: border-box;
   display: flex;
