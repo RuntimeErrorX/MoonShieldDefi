@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Button from '../../components/Button'
 import Page from '../../components/Page'
-import PageHeader from '../../components/PageHeader'
 import { Input } from '@material-ui/core'
 import * as bsc from '@binance-chain/bsc-use-wallet'
 import BigNumber from 'bignumber.js'
@@ -16,11 +14,6 @@ import { AbiItem } from 'web3-utils'
 import { useCollectBNB, useSendToken } from './../../hooks/useMoonshield'
 import { useLPTotalLiquidity, useMoonBalance, useNextClaimDate, useTotalLiquidity, useLPBnbamount, useLPMshieldamount } from './../../hooks/useSlotBalance'
 import mainImg from '../../assets/img/logoletras.svg'
-import bnbInPool from '../../assets/img/bnb_in_pool.png'
-import currentPrice from '../../assets/img/current_price.png'
-import liquidityPool from '../../assets/img/liquidity_pool.png'
-import maxAmount from '../../assets/img/max_transaction_amount.png'
-import rewardPool from '../../assets/img/reward_pool.png'
 import { useHistory } from 'react-router-dom'
 import WriteClaim from './components/WriteClaim'
 import ReadContractItem from './components/ReadContractItem'
@@ -34,6 +27,7 @@ import TransferClaim from './components/TransferClaim'
 import { getTokenBalance } from '../../utils/erc20'
 import accountImg from '../../assets/img/logoletras.svg'
 import { useGettingTime } from '../../hooks/useContract'
+import { toLocaleString, toUTCString } from '../../utils/translateTextHelpers'
 
 const Home: React.FC = () => {
   const history = useHistory()
@@ -216,11 +210,11 @@ const Home: React.FC = () => {
                     <>
                       <DappInfo
                         maxTransaction={maxtransvalue}
-                        totolLP={((totalBNBValue * BNBPrice) / 1000000000000000000).toLocaleString()}
+                        totolLP={((totalBNBValue * BNBPrice) / 1000000000000000000).toLocaleString('en-US', {minimumFractionDigits: 2})}
                         totalReward={realvalue.toLocaleString()}
                         BNBinLp={totalBNB.toLocaleString()}
                         BNBinRewardPool={BNBRewardPool.toLocaleString()}
-                        MSHLDBalance={currentBalance.toLocaleString()} />
+                        MSHLDBalance={currentBalance.toLocaleString('en-US', {minimumFractionDigits: 3})} />
                         <StyledRowArea>
                           <StyledArea>
                             <WriteClaim />
@@ -297,13 +291,4 @@ const StyledLogo = styled(NavLink)`
   padding: 0;
   text-decoration: none;
 `
-
 export default Home
-function toUTCString(arg0: Date) {
-  return;
-}
-
-function toLocaleString(arg0: Date) {
-  return;
-}
-
