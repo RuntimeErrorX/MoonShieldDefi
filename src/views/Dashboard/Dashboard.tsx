@@ -81,16 +81,16 @@ const Home: React.FC = () => {
 
   const contracttotalliquidity = useTotalLiquidity();
   const totalliquidity = contracttotalliquidity.toNumber()
-  const realtotalliquidity = totalliquidity === 0?'0':(totalliquidity/1000000000000000000).toLocaleString('en-US', {minimumFractionDigits: 3});
+  const realtotalliquidity = totalliquidity === 0?'0':(totalliquidity/1000000000000000000).toLocaleString('en-US', {maximumFractionDigits: 3});
 
   const totalvalue = BNBPrice
-  const realvalue = totalvalue === 0?'0':(totalliquidity*totalvalue/1000000000000000000).toLocaleString('en-US', {minimumFractionDigits: 3});
+  const realvalue = totalvalue === 0?'0':(totalliquidity*totalvalue/1000000000000000000).toLocaleString('en-US', {maximumFractionDigits: 3});
 
   const contractlptotalliquidity = useLPBnbamount();
   const lptotalliquidity = contractlptotalliquidity.toNumber()
-  const reallptotalliquidity = lptotalliquidity === 0?'0':(lptotalliquidity/1000000000000000000).toLocaleString('en-US', {minimumFractionDigits: 3});
+  const reallptotalliquidity = lptotalliquidity === 0?'0':(lptotalliquidity/1000000000000000000).toLocaleString('en-US', {maximumFractionDigits: 3});
 
-  const reallpvalue = lptotalliquidity*totalvalue===0?'0':(lptotalliquidity*totalvalue/1000000000000000000).toLocaleString('en-US', {minimumFractionDigits: 3});
+  const reallpvalue = lptotalliquidity*totalvalue===0?'0':(lptotalliquidity*totalvalue/1000000000000000000).toLocaleString('en-US', {maximumFractionDigits: 3});
 
   const LpMshield = useLPMshieldamount();
   const LpMshieldValue = LpMshield.toNumber()
@@ -144,6 +144,7 @@ const Home: React.FC = () => {
         .balanceOf(wallet.account)
         .call()
       setCurrencyBalance(web3.utils.toBN(balance).toNumber() / 1000000000)
+      return (web3.utils.toBN(balance).toNumber() / 1000000000).toLocaleString('en-US', {maximumFractionDigits: 3})
     }
   }
 
@@ -210,11 +211,11 @@ const Home: React.FC = () => {
                     <>
                       <DappInfo
                         maxTransaction={maxtransvalue}
-                        totolLP={((totalBNBValue * BNBPrice) / 1000000000000000000).toLocaleString('en-US', {minimumFractionDigits: 2})}
-                        totalReward={realvalue.toLocaleString()}
+                        totolLP={((totalBNBValue * BNBPrice) / 1000000000000000000).toLocaleString('en-US', {maximumFractionDigits: 3})}
+                        totalReward={realvalue}
                         BNBinLp={totalBNB.toLocaleString()}
-                        BNBinRewardPool={BNBRewardPool.toLocaleString()}
-                        MSHLDBalance={currentBalance.toLocaleString('en-US', {minimumFractionDigits: 3})} />
+                        BNBinRewardPool={reallptotalliquidity}
+                        MSHLDBalance={currentBalance.toLocaleString()} />
                         <StyledRowArea>
                           <StyledArea>
                             <WriteClaim />
